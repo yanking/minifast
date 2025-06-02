@@ -44,6 +44,8 @@ type Server struct {
 	//是否开启metrics接口， 默认开启， 如果开启会自动添加 /metrics 接口
 	enableMetrics bool
 
+	enableTracing bool
+
 	//中间件
 	middlewares []string
 
@@ -81,7 +83,6 @@ func New(opts ...ServerOption) *Server {
 		opt(srv)
 	}
 
-	srv.Use(mws.TracingHandler(srv.serviceName))
 	for _, m := range srv.middlewares {
 		mw, ok := mws.Middlewares[m]
 		if !ok {
@@ -138,6 +139,10 @@ func (s *Server) Start(ctx context.Context) error {
 		// used to p95, p99
 		m.SetDuration([]float64{0.1, 0.3, 1.2, 5, 10})
 		m.Use(s)
+	}
+
+	if s.enableTracing {
+		s.Use(mws.TracingHandler(s.serviceName))
 	}
 
 	log.Infof("rest server is running on port %d", s.port)

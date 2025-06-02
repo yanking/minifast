@@ -33,6 +33,7 @@ type Server struct {
 	endpoint *url.URL
 
 	enableMetrics bool
+	enableTracing bool
 }
 
 func (s *Server) Endpoint() *url.URL {
@@ -92,7 +93,9 @@ func NewServer(opts ...ServerOption) *Server {
 	}
 
 	//处理tracing拦截器
-	grpcOpts = append(grpcOpts, grpc.StatsHandler(otelgrpc.NewServerHandler()))
+	if srv.enableTracing {
+		grpcOpts = append(grpcOpts, grpc.StatsHandler(otelgrpc.NewServerHandler()))
+	}
 
 	srv.Server = grpc.NewServer(grpcOpts...)
 
@@ -123,6 +126,12 @@ func WithAddress(address string) ServerOption {
 func WithMetrics(metric bool) ServerOption {
 	return func(o *Server) {
 		o.enableMetrics = metric
+	}
+}
+
+func WithTracing(tracing bool) ServerOption {
+	return func(o *Server) {
+		o.enableTracing = tracing
 	}
 }
 

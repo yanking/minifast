@@ -49,3 +49,9 @@ func WithMetrics(enable bool) ServerOption {
 		o.enableMetrics = enable
 	}
 }
+
+func WithTracing(enable bool) ServerOption {
+	return func(o *Server) {
+		o.enableTracing = enable
+	}
+}

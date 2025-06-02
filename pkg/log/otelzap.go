@@ -13,7 +13,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/codes"
-	semconv "go.opentelemetry.io/otel/semconv/v1.10.0"
+	semconv "go.opentelemetry.io/otel/semconv/v1.32.0"
 	"go.opentelemetry.io/otel/trace"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
@@ -253,11 +253,11 @@ func (l *Logger) log(span trace.Span, lvl zapcore.Level, msg string, attrs []att
 	if l.caller {
 		if fn, file, line, ok := runtimeCaller(4); ok {
 			if fn != "" {
-				attrs = append(attrs, semconv.CodeFunctionKey.String(fn))
+				attrs = append(attrs, semconv.CodeFunctionName(fn))
 			}
 			if file != "" {
-				attrs = append(attrs, semconv.CodeFilepathKey.String(file))
-				attrs = append(attrs, semconv.CodeLineNumberKey.Int(line))
+				attrs = append(attrs, semconv.CodeFilePath(file))
+				attrs = append(attrs, semconv.CodeLineNumber(line))
 			}
 		}
 	}
@@ -265,7 +265,7 @@ func (l *Logger) log(span trace.Span, lvl zapcore.Level, msg string, attrs []att
 	if l.stackTrace {
 		stackTrace := make([]byte, 2048)
 		n := runtime.Stack(stackTrace, false)
-		attrs = append(attrs, semconv.ExceptionStacktraceKey.String(string(stackTrace[0:n])))
+		attrs = append(attrs, semconv.ExceptionStacktrace(string(stackTrace[0:n])))
 	}
 
 	span.AddEvent("log", trace.WithAttributes(attrs...))
@@ -773,8 +773,8 @@ func appendField(attrs []attribute.KeyValue, f zapcore.Field) []attribute.KeyVal
 	case zapcore.ErrorType:
 		err := f.Interface.(error)
 		typ := reflect.TypeOf(err).String()
-		attrs = append(attrs, semconv.ExceptionTypeKey.String(typ))
-		attrs = append(attrs, semconv.ExceptionMessageKey.String(err.Error()))
+		attrs = append(attrs, semconv.ExceptionType(typ))
+		attrs = append(attrs, semconv.ExceptionMessage(err.Error()))
 		return attrs
 	case zapcore.ReflectType:
 		attr := otelutil.Attribute(f.Key, f.Interface)
