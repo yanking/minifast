@@ -184,7 +184,7 @@ func (a *App) buildInstance() (*registry.ServiceInstance, error) {
 
 	// 从rpcserver,restserver 去获取信息
 	if a.opts.rpcServer != nil {
-		if a.opts.rpcServer.Endpoint() != "" {
+		if a.opts.rpcServer.Endpoint() != nil {
 			endpoints = append(endpoints, a.opts.rpcServer.Endpoint().String())
 		} else {
 			u := &url.URL{

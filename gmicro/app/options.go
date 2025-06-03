@@ -2,6 +2,8 @@ package app
 
 import (
 	"minifast/gmicro/registry"
+	"minifast/gmicro/server/restserver"
+	"minifast/gmicro/server/rpcserver"
 	"net/url"
 	"os"
 	"time"

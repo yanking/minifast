@@ -61,7 +61,7 @@ type Server struct {
 	serviceName string
 }
 
-func New(opts ...ServerOption) *Server {
+func NewServer(opts ...ServerOption) *Server {
 	srv := &Server{
 		port:            8080,
 		mode:            gin.DebugMode,
@@ -152,7 +152,7 @@ func (s *Server) Start(ctx context.Context) error {
 		Handler: s.Engine,
 	}
 	_ = s.SetTrustedProxies(nil)
-	if err = s.server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+	if err = s.server.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
 		return err
 	}
 
