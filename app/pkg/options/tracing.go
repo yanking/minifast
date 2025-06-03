@@ -6,10 +6,10 @@ import (
 )
 
 type TelemetryOptions struct {
-	Name     string  `mapstructure:"name" json:"name,omitempty"`
-	Endpoint string  `mapstructure:"endpoint" json:"endpoint,omitempty"`
-	Sampler  float64 `mapstructure:"sampler" json:"sampler,omitempty"`
-	Batcher  string  `mapstructure:"batcher" json:"batcher,omitempty"`
+	Name     string  `json:"name"`
+	Endpoint string  `json:"endpoint"`
+	Sampler  float64 `json:"sampler"`
+	Batcher  string  `json:"batcher"`
 }
 
 func NewTelemetryOptions() *TelemetryOptions {
@@ -21,18 +21,19 @@ func NewTelemetryOptions() *TelemetryOptions {
 	}
 }
 
-func (t *TelemetryOptions) Validate() []error {
+func (to *TelemetryOptions) Validate() []error {
 	errs := []error{}
-	if t.Batcher != "jaeger" && t.Batcher != "zipkin" {
+	if to.Batcher != "jaeger" && to.Batcher != "zipkin" {
 		errs = append(errs, errors.New("opentelemetry batcher only support jaeger or zipkin"))
 	}
 	return errs
 }
 
 // AddFlags adds flags related to open telemetry for a specific tracing to the specified FlagSet.
-func (t *TelemetryOptions) AddFlags(fs *pflag.FlagSet) {
-	fs.StringVar(&t.Name, "telemetry.name", t.Name, "opentelemetry name")
-	fs.StringVar(&t.Endpoint, "telemetry.endpoint", t.Endpoint, "opentelemetry endpoint")
-	fs.Float64Var(&t.Sampler, "telemetry.sampler", t.Sampler, "telemetry sampler")
-	fs.StringVar(&t.Batcher, "telemetry.batcher", t.Batcher, "telemetry batcher, only support jaeger and zipkin")
+func (to *TelemetryOptions) AddFlags(fs *pflag.FlagSet) {
+	fs.StringVar(&to.Name, "telemetry.name", to.Name, "opentelemetry name")
+
+	fs.StringVar(&to.Endpoint, "telemetry.endpoint", to.Endpoint, "opentelemetry endpoint")
+	fs.Float64Var(&to.Sampler, "telemetry.sampler", to.Sampler, "telemetry sampler")
+	fs.StringVar(&to.Batcher, "telemetry.batcher", to.Batcher, "telemetry batcher, only support jaeger and zipkin")
 }

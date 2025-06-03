@@ -11,6 +11,7 @@ require (
 	github.com/golang-jwt/jwt/v5 v5.1.0
 	github.com/google/uuid v1.6.0
 	github.com/hashicorp/consul/api v1.32.1
+	github.com/olivere/elastic/v7 v7.0.32
 	github.com/penglongli/gin-metrics v0.1.13
 	github.com/pkg/errors v0.9.1
 	github.com/prometheus/client_golang v1.12.0
@@ -58,9 +59,11 @@ require (
 	github.com/hashicorp/go-rootcerts v1.0.2 // indirect
 	github.com/hashicorp/golang-lru v0.5.4 // indirect
 	github.com/hashicorp/serf v0.10.1 // indirect
+	github.com/josharian/intern v1.0.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/klauspost/cpuid/v2 v2.2.10 // indirect
 	github.com/leodido/go-urn v1.4.0 // indirect
+	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/matttproud/golang_protobuf_extensions v1.0.1 // indirect
