@@ -2,13 +2,12 @@ package db
 
 import (
 	"fmt"
-	"gorm.io/gorm"
-	"mxshop/app/pkg/code"
-	"mxshop/app/pkg/options"
-	errors2 "mxshop/pkg/errors"
-	"sync"
-
 	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
+	"minifast/app/pkg/code"
+	"minifast/app/pkg/options"
+	errors2 "minifast/pkg/errors"
+	"sync"
 )
 
 var (
@@ -16,14 +15,10 @@ var (
 	once      sync.Once
 )
 
-// 这个方法会返回gorm连接
-// 还不够
-// 这个方法应该返回的是全局的一个变量，如果一开始的时候没有初始化好，那么就初始化一次，后续呢直接拿到这个变量
 func GetDBFactoryOr(mysqlOpts *options.MySQLOptions) (*gorm.DB, error) {
 	if mysqlOpts == nil && dbFactory == nil {
 		return nil, fmt.Errorf("failed to get mysql store fatory")
 	}
-
 	var err error
 	once.Do(func() {
 		dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",

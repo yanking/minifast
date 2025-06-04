@@ -3,11 +3,11 @@ package db
 import (
 	"context"
 	"gorm.io/gorm"
-	"mxshop/app/pkg/code"
-	dv1 "mxshop/app/user/srv/data/v1"
-	code2 "mxshop/gmicro/code"
-	metav1 "mxshop/pkg/common/meta/v1"
-	"mxshop/pkg/errors"
+	"minifast/app/pkg/code"
+	dv1 "minifast/app/user/srv/data/v1"
+	code2 "minifast/gmicro/code"
+	metav1 "minifast/pkg/common/meta/v1"
+	"minifast/pkg/errors"
 )
 
 type users struct {

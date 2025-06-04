@@ -87,7 +87,7 @@ func Register(coder Coder) {
 // It will panic when the same Code already exist.
 func MustRegister(coder Coder) {
 	if coder.Code() == 0 {
-		panic("code '0' is reserved by 'imooc/mxshop/pkg/errors' as ErrUnknown error code")
+		panic("code '0' as ErrUnknown error code")
 	}
 
 	codeMux.Lock()

@@ -5,7 +5,7 @@ import (
 	"gorm.io/gorm"
 	"time"
 
-	metav1 "mxshop/pkg/common/meta/v1"
+	metav1 "minifast/pkg/common/meta/v1"
 )
 
 type BaseModel struct {

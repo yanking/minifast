@@ -3,8 +3,8 @@ package mock
 import (
 	"context"
 
-	dv1 "mxshop/app/user/srv/data/v1"
-	metav1 "mxshop/pkg/common/meta/v1"
+	dv1 "minifast/app/user/srv/data/v1"
+	metav1 "minifast/pkg/common/meta/v1"
 )
 
 type users struct {

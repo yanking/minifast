@@ -1,10 +1,16 @@
 package srv
 
 import (
+	"github.com/google/wire"
+	"minifast/app/pkg/options"
 	"minifast/app/user/srv/config"
+	gapp "minifast/gmicro/app"
+	"minifast/gmicro/server/rpcserver"
 	"minifast/pkg/app"
 	"minifast/pkg/log"
 )
+
+var ProviderSet = wire.NewSet(NewUserApp, NewUserRPCServer)
 
 func NewApp(basename string) *app.App {
 	cfg := config.New()
@@ -17,6 +23,17 @@ func NewApp(basename string) *app.App {
 	)
 
 	return appl
+}
+
+func NewUserApp(logOpts *log.Options, serverOpts *options.ServerOptions, rpcServer *rpcserver.Server) (*gapp.App, error) {
+	//初始化log
+	log.Init(logOpts)
+	defer log.Flush()
+
+	return gapp.New(
+		gapp.WithName(serverOpts.Name),
+		gapp.WithRPCServer(rpcServer),
+	), nil
 }
 
 func run(cfg *config.Config) app.RunFunc {

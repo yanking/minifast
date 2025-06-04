@@ -2,12 +2,12 @@ package rpcserver
 
 import (
 	"context"
+	apimd "github.com/go-kratos/kratos/v2/api/metadata"
 	"go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/health"
 	"google.golang.org/grpc/health/grpc_health_v1"
 	"google.golang.org/grpc/reflection"
-	apimd "minifast/api/metadata"
 	srvintc "minifast/gmicro/server/rpcserver/serverinterceptors"
 	"minifast/pkg/host"
 	"minifast/pkg/log"

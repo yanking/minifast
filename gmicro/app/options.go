@@ -41,7 +41,7 @@ func WithEndpoints(endpoints ...url.URL) Option {
 	}
 }
 
-func WithRpcServer(rpcServer *rpcserver.Server) Option {
+func WithRPCServer(rpcServer *rpcserver.Server) Option {
 	return func(o *options) {
 		o.rpcServer = rpcServer
 	}
