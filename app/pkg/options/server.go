@@ -3,6 +3,7 @@ package options
 import "github.com/spf13/pflag"
 
 type ServerOptions struct {
+	Env string `json:"env" mapstructure:"env"`
 	// 是否开启pprof
 	EnableProfiling bool `json:"profiling" mapstructure:"profiling"`
 	EnableLimit     bool `json:"limit" mapstructure:"limit"`
@@ -25,6 +26,7 @@ type ServerOptions struct {
 // NewServerOptions create a `zero` value instance.
 func NewServerOptions() *ServerOptions {
 	return &ServerOptions{
+		Env:               "dev",
 		EnableHealthCheck: true,
 		EnableProfiling:   true,
 		EnableMetrics:     true,
@@ -58,4 +60,7 @@ func (so *ServerOptions) AddFlags(fs *pflag.FlagSet) {
 	fs.IntVar(&so.HttpPort, "server.http-port", so.HttpPort, "server http port default is 8079")
 
 	fs.StringVar(&so.Name, "server.name", so.Name, "server name default is mxshop-user-srv")
+
+	fs.StringVar(&so.Env, "server.env", so.Env, "server env default is dev")
+
 }

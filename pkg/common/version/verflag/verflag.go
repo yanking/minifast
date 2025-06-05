@@ -4,6 +4,7 @@ package verflag
 
 import (
 	"fmt"
+	"minifast/pkg/common/version"
 	"os"
 	"strconv"
 
@@ -94,10 +95,10 @@ func AddFlags(fs *pflag.FlagSet) {
 func PrintAndExitIfRequested() {
 	// 检查版本标志的值并打印相应的信息
 	if *versionFlag == VersionRaw {
-		fmt.Printf("%s\n", Get().Text())
+		fmt.Printf("%s\n", version.Get().Text())
 		os.Exit(0)
 	} else if *versionFlag == VersionEnabled {
-		fmt.Printf("%s\n", Get().String())
+		fmt.Printf("%s\n", version.Get().String())
 		os.Exit(0)
 	}
 }

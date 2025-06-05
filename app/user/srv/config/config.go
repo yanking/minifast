@@ -23,8 +23,8 @@ func (c *Config) Validate() []error {
 }
 
 func (c *Config) Flags() (fss cliflag.NamedFlagSets) {
-	c.Log.AddFlags(fss.FlagSet("logs"))
 	c.Server.AddFlags(fss.FlagSet("server"))
+	c.Log.AddFlags(fss.FlagSet("logs"))
 	c.Telemetry.AddFlags(fss.FlagSet("telemetry"))
 	c.MySQLOptions.AddFlags(fss.FlagSet("mysql"))
 	return fss
